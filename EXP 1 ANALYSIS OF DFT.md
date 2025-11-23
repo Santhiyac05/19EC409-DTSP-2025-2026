@@ -1,5 +1,5 @@
 # EXP 1 :  ANALYSIS OF DFT WITH AUDIO SIGNAL
-
+REG NO:212223060247
 # AIM: 
 
   To analyze audio signal by removing unwanted frequency. 
@@ -72,6 +72,11 @@ print("\nTop 5 dominant frequency components (Hz):")
 print(dominant_freqs)
 ```
 # OUTPUT: 
+[audio.wav](https://github.com/user-attachments/files/23697166/audio.wav)
+
+<img width="883" height="601" alt="image" src="https://github.com/user-attachments/assets/41ed3104-0bc4-43dc-98d7-f5310331d7e4" />
+
 
 
 # RESULTS
+Thus ,the audio signal was analyzed using DFT.
