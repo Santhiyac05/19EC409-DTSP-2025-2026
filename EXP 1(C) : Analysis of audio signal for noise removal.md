@@ -135,6 +135,11 @@ print("🎧 Recovered Speech:")
 display(Audio(recovered, rate=fs))
 ```
 #OUTPUT:
+[speech.wav](https://github.com/user-attachments/files/23723810/speech.wav)
+
+[noise.mp3](https://github.com/user-attachments/files/23723823/noise.mp3)
+
+
 <img width="1238" height="829" alt="image" src="https://github.com/user-attachments/assets/439b893d-d821-497f-a5dd-321c557fb168" />
 
 <img width="1362" height="827" alt="image" src="https://github.com/user-attachments/assets/dd9f6b7c-042e-4db8-aef6-5262e60c0f9f" />
