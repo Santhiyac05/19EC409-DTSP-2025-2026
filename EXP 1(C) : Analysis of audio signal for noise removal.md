@@ -15,16 +15,24 @@ from google.colab import files
 from IPython.display import Audio
 
 # ------------------------------------------------------------
-# 1️⃣ Upload your files (speech.wav and noise.wav)
+# 1️⃣ Upload Speech File
 # ------------------------------------------------------------
-print("📁 Please upload 'speech.wav' and 'noise.wav'")
-uploaded = files.upload()  # Choose your two WAV files
+print("📁 Please upload 'speech.wav'")
+uploaded_speech = files.upload()
+speech_path = list(uploaded_speech.keys())[0]  # Get uploaded file name
 
 # ------------------------------------------------------------
-# 2️⃣ Load signals
+# 2️⃣ Upload Noise File
 # ------------------------------------------------------------
-fs_s, speech = wavfile.read('speech.wav')
-fs_n, noise  = wavfile.read('noise.wav')
+print("📁 Please upload 'noise.wav'")
+uploaded_noise = files.upload()
+noise_path = list(uploaded_noise.keys())[0]  # Get uploaded file name
+
+# ------------------------------------------------------------
+# 3️⃣ Load signals
+# ------------------------------------------------------------
+fs_s, speech = wavfile.read(speech_path)
+fs_n, noise  = wavfile.read(noise_path)
 assert fs_s == fs_n, "❌ Sampling rates must match!"
 fs = fs_s
 
@@ -53,13 +61,13 @@ speech = speech[:L]
 noise  = noise[:L]
 
 # ------------------------------------------------------------
-# 3️⃣ Mix the signals (adjust alpha for noise strength)
+# 4️⃣ Mix the signals (adjust alpha for noise strength)
 # ------------------------------------------------------------
 alpha = 0.5
 mixed = speech + alpha * noise
 
 # ------------------------------------------------------------
-# 4️⃣ FFT-based filtering
+# 5️⃣ FFT-based filtering
 # ------------------------------------------------------------
 N = int(2 ** np.ceil(np.log2(L)))  # next power of two
 M = np.fft.rfft(mixed, n=N)
@@ -75,13 +83,13 @@ recovered = np.fft.irfft(M_filtered, n=N)[:L]
 recovered = recovered / (np.max(np.abs(recovered)) + 1e-12)
 
 # ------------------------------------------------------------
-# 5️⃣ Save the recovered audio
+# 6️⃣ Save output audio
 # ------------------------------------------------------------
 wavfile.write('recovered_simple.wav', fs, (recovered * 32767).astype(np.int16))
-print("✅ Recovered audio saved as 'recovered_simple.wav'")
+print("✅ Recovered audio saved as: recovered_simple.wav")
 
 # ------------------------------------------------------------
-# 6️⃣ Plot waveforms
+# 7️⃣ Plot waveforms
 # ------------------------------------------------------------
 t = np.arange(L) / fs
 
@@ -104,7 +112,7 @@ plt.tight_layout()
 plt.show()
 
 # ------------------------------------------------------------
-# 7️⃣ Plot Magnitude Spectra
+# 8️⃣ Plot Magnitude Spectra
 # ------------------------------------------------------------
 plt.figure(figsize=(10,5))
 plt.semilogy(freqs, np.abs(np.fft.rfft(mixed, n=N)), label='Noisy Speech')
@@ -117,7 +125,7 @@ plt.grid(True)
 plt.show()
 
 # ------------------------------------------------------------
-# 8️⃣ Listen to the signals
+# 9️⃣ Listen to audio
 # ------------------------------------------------------------
 print("🎧 Original Speech:")
 display(Audio(speech, rate=fs))
@@ -126,7 +134,12 @@ display(Audio(mixed, rate=fs))
 print("🎧 Recovered Speech:")
 display(Audio(recovered, rate=fs))
 ```
+#OUTPUT:
+<img width="1238" height="829" alt="image" src="https://github.com/user-attachments/assets/439b893d-d821-497f-a5dd-321c557fb168" />
 
-// DISCRETE FOURIER TRANSFORM 
+<img width="1362" height="827" alt="image" src="https://github.com/user-attachments/assets/dd9f6b7c-042e-4db8-aef6-5262e60c0f9f" />
+
+
 
 # RESULT: 
+Thus the analyze audio signal by removing unwanted frequency is done successfully
